@@ -1,15 +1,17 @@
 package Model;
 
+import java.sql.ResultSet;
+
 /**
  * Created by MarkSchatzman on 4/29/17.
  */
 public class Reservation {
-    private int cust_id;
+    private String cust_id;
     private String startDate;
     private String endDate;
-    private int vin;
+    private String vin;
 
-    public Reservation(int cust_id, String startDate, String endDate, int vin){
+    public Reservation(String cust_id, String startDate, String endDate, String vin){
         this.cust_id = cust_id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -21,9 +23,10 @@ public class Reservation {
                 "', '" + getStartDate() + "', '" + getEndDate() + "', '" + getVin() + "')");
     }
 
-    public int getCust_id() {
+    public String getCust_id() {
         return cust_id;
     }
+
 
     public String getStartDate() {
         return startDate;
@@ -33,7 +36,7 @@ public class Reservation {
         return endDate;
     }
 
-    public int getVin() {
+    public String getVin() {
         return vin;
     }
 }

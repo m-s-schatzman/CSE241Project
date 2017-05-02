@@ -1,7 +1,6 @@
 import Model.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -92,13 +91,13 @@ public class DBUtil {
 
     }
 
-    public static void addVehicles(){
+    public static void addVehicles() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
+        /*
         List<String> makes = Arrays.asList("BMW", "Chrysler", "Honda", "Ferrari", "Mazda", "Jeep", "Volvo", "Isuzu",
                 "Citrogen", "Amc", "Ford", "Toyota", "Chevrolet", "Pontiac");
         List<String> models = Arrays.asList("Axium", "Gremlin", "Pacer", "Edsel", "A6", "A8");
-        List<String> types = Arrays.asList("Minicar", "SUV", "Minivan", "Compact", "Subcompact");
-        /*
+        List<String> types = Arrays.asList("Minicar", "SUV", "Minivan", "Compact", "Subcompact");*/
         vehicles.add(new Vehicle("Isuzu", "Axium", "2001", "SUV", 12000, 0));
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1948", "minicar", 200000, 0));
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1949", "minicar", 145940, 0));
@@ -148,14 +147,16 @@ public class DBUtil {
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1956", "minicar", 89543, 0));
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1957", "minicar", 54934, 0));
         vehicles.add(new Vehicle("Pontiac", "Aztek", "2001", "minivan", 83349, 0));
-        vehicles.add(new Vehicle("Pontiac", "Aztek", "2004", "minivan", 83329, 0));*/
+        vehicles.add(new Vehicle("Pontiac", "Aztek", "2004", "minivan", 83329, 0));
         Random rand = new Random();
         int randomNum = 0;
-        for (Vehicle v:
-             vehicles) {
-            randomNum = rand.nextInt((Location.numLocations - 1) + 1) + 1;
-            v.insert(randomNum);
-        }
+        for (int i = 0; i < 3; i++){
+            for (Vehicle v :
+                    vehicles) {
+                randomNum = rand.nextInt((17 - 1) + 1) + 1;
+                v.insert(randomNum);
+            }
+     }
     }
 
     public static void addLicenses(){
@@ -215,6 +216,11 @@ public class DBUtil {
             cc.insert(i++);
         }
 
+    }
+
+    public static void createRentals(){
+        ArrayList<Rental> rentals = new ArrayList<>();
+        //rentals.add(new Rental())
     }
 
     public static void main(String[] args){

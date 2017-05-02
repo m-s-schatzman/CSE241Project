@@ -1,7 +1,5 @@
 import Model.DBConnection;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import View.MainView;
 
 public class HurtsRentALemon {
 

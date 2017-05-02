@@ -57,7 +57,7 @@ public class Location {
         ArrayList<String> vins = new ArrayList<>();
         ResultSet rs = DBConnection.getTuple("select vin, year, type, make, model " +
                 "from vehicle natural join location" +
-                " where loc_id = " + loc_id);
+                " where loc_id = " + loc_id + "and available = 1");
         String type;
         String year;
         String make;

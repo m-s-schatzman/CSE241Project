@@ -1,4 +1,5 @@
-import Model.DBConnection;
+package View;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -21,6 +22,10 @@ public class MainView {
                 response = scanner.next();
                 if (response.equals("1")) {
                     CustomerView.execute();
+                    exit = true;
+                }
+                else if(response.equals("2")){
+                    EmployeeView.execute();
                     exit = true;
                 }
                 else if (response.equals("0")) {

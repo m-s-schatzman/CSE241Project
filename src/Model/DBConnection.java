@@ -77,6 +77,24 @@ public class DBConnection {
         return rs;
     }
 
+    public static void updateTuple(String query){
+        try {
+            s = con.createStatement();
+
+            //System.out.println(query);
+
+            // execute insert SQL stetement
+            s.executeUpdate(query);
+
+            //System.out.println("Record is inserted into DBUSER table!");
+
+        } catch (java.sql.SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+    }
+
 
     public static void close(){
         try {
