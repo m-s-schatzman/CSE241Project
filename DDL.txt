@@ -1,0 +1,94 @@
+create table discount_group (
+			     gid numeric(4, 0) generated as identity,
+			     name varchar(35) not null,
+			     code varchar(5),
+			     discount numeric(3, 0),
+			     primary key (gid));
+
+create table customer (
+		       id numeric(4, 0) generated as identity,
+		       name varchar(25) not null,
+		       street varchar(30),
+		       city varchar(30),
+		       region varchar(30),
+		       gid numeric(4, 0),
+		       foreign key(gid) references discount_group,
+		       primary key(id));
+
+create table license (
+		      lid varchar(19) not null,
+		      id numeric(4, 0),
+		      dob date not null,
+		      exp date not null,
+		      foreign key(id) references customer,
+		      primary key(lid));
+
+create table cc (
+		   ccid varchar(19),
+		   id numeric(4, 0),
+		   cvv numeric(3, 0),
+		   exp date,
+		   foreign key (id) references customer,
+		   primary key (ccid));
+
+create table location (
+		       loc_id numeric(2, 0) generated as identity,
+		       street varchar(30),
+		       city varchar(30),
+		       region varchar(30),
+		       primary key(loc_id));
+
+create table vehicle (
+		      vin numeric(3, 0) generated as identity,
+		      rate numeric(6, 2),
+		      make varchar(20),
+		      model varchar(20),
+		      year varchar(4),
+		      type varchar(20),
+		      odometer numeric(7, 0),
+		      loc_id numeric(2, 0),
+		      available numeric(1, 0),
+		      foreign key(loc_id) references location,
+		      primary key(vin));
+
+create table reservation (
+			  res_id numeric(3, 0) generated as identity,
+			  id numeric(4, 0),
+			  start_date date,
+			  end_date date,
+			  vin numeric(3, 0),
+			  foreign key(id) references customer,
+			  foreign key(vin) references vehicle,
+			  primary key(res_id));
+
+create table charge (
+		     c_id numeric(3, 0) generated as identity,
+		     amount numeric(4, 0),
+		     charge_date timestamp,
+		     primary key(c_id));
+
+create table rental (
+		     rentid numeric(2, 0) generated as identity,
+		     id numeric(4, 0),
+		     locid numeric(2, 0),
+		     vin numeric(3, 0),
+		     rate numeric(6, 2),
+		     pickup timestamp,
+		     dropoff timestamp,
+		     c_id numeric(3, 0),
+		     total numeric(3, 0),
+		     foreign key(id) references customer,
+		     foreign key(locid) references location,
+		     foreign key(vin) references vehicle,
+		     foreign key(c_id) references charge,
+		     primary key(rentid));
+
+drop table rental;
+drop table charge;
+drop table reservation;
+drop table vehicle;
+drop table location;
+drop table cc;
+drop table license;
+drop table customer;
+drop table discount_group;

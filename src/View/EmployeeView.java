@@ -16,18 +16,23 @@ public class EmployeeView {
         Location.showLocations();
         System.out.println("Please select the location id from where you are working:");
         locId = scan.next();
-        System.out.println("1. Create a rental for an existing customer.\n2. Create a rental for a new customer\n" +
-                "0. Go back to home.");
+        System.out.println("************************************************************");
+        System.out.println("* 1. Create a rental for an existing customer              *");
+        System.out.println("* 2. Create a rental for a new customer                    *");
+        System.out.println("* 0. Go back to home.                                      *");
+        System.out.println("************************************************************");
         String response;
         boolean valid = false;
         while (!valid) {
             response = scan.next();
             if (response.equals("1")) {
-                existingCustomerRental();
                 valid = true;
+                existingCustomerRental();
             } else if (response.equals("2")) {
+                valid = true;
                 newCustomerRental();
             } else if (response.equals("0")) {
+                valid = true;
                 MainView.execute();
             }
         }
@@ -35,8 +40,11 @@ public class EmployeeView {
 
     public static void home() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("1. Create a rental for an existing customer.\n2. Create a rental for a new customer\n" +
-                "0. Go back to home.");
+        System.out.println("************************************************************");
+        System.out.println("* 1. Create a rental for an existing customer              *");
+        System.out.println("* 2. Create a rental for a new customer                    *");
+        System.out.println("* 0. Go back to home.                                      *");
+        System.out.println("************************************************************");
         String response;
         boolean valid = false;
         while (!valid) {
@@ -46,8 +54,10 @@ public class EmployeeView {
                 valid = true;
             } else if (response.equals("2")) {
                 newCustomerRental();
+                valid = true;
             } else if (response.equals("0")) {
                 MainView.execute();
+                valid = true;
             }
         }
     }
@@ -61,10 +71,10 @@ public class EmployeeView {
         boolean done = false;
         while(!done) {
             Customer.showCustomers();
-            System.out.println("Select the customer id for who you wish to make a rental.");
+            System.out.println("Select the customer id for who you wish to make a rental:");
             custId = scan.nextLine();
             Location.showVehicles(locId);
-            System.out.println("Select the vehicle id that the customer would like to rent.");
+            System.out.println("Select the vehicle id that the customer would like to rent:");
             vin = scan.nextLine();
             System.out.println("How many days will the rental be?");
             numDays = scan.nextInt();
@@ -77,7 +87,7 @@ public class EmployeeView {
             response  = scanner.nextLine();
             if(response.equals("no")) {
                 done = true;
-                EmployeeView.home();
+                home();
             }
 
         }
@@ -93,13 +103,14 @@ public class EmployeeView {
         String[] custInfo = line.split(", ");
         Customer customer = new Customer(custInfo[0], custInfo[1], custInfo[2], custInfo[3]);
         customer.insert();
-        System.out.println("Please enter " + custInfo[0] + "'s 'license number', 'date of birth', 'license exp date' " +
-        "as indicated with commas.");
+        System.out.println("Please enter " + custInfo[0] + "'s 'license number', 'date of birth (yyyy/mm/dd)', 'license exp date (yyyy/mm/dd)' " +
+        "as indicated with commas and specified date formats.");
         String licLine = scan.nextLine();
         String[] custLisc = licLine.split(", ");
         License license = new License(custLisc[0], custLisc[1], custLisc[2]);
         int custId = Integer.parseInt(Customer.getCustId(customer));
         license.insert(custId);
+        Location.showVehicles(locId);
         System.out.println("Select the vehicle id that the customer would like to rent.");
         vin = scan.nextLine();
         System.out.println("How many days will the rental be?");
@@ -108,6 +119,7 @@ public class EmployeeView {
         rental.insert();
         Vehicle.setUnavailable(Integer.parseInt(vin));
         System.out.println("Rental created!");
+        home();
     }
 
 

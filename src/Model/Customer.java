@@ -90,4 +90,32 @@ public class Customer {
         }
         return id;
     }
+
+    public static String getCustId(String choice){
+        String id = "";
+        ResultSet rs = DBConnection.getTuple("select id from customer where id = " + choice);
+        try {
+            if (rs.next()) {
+                id = rs.getString("id");
+            }
+        }
+        catch(java.sql.SQLException ex){
+            System.out.println("Customer not found!");
+        }
+        return id;
+    }
+
+    public static String getCustName(String cust_id){
+        String name = "";
+        ResultSet rs = DBConnection.getTuple("select name from customer where id = " + cust_id);
+        try {
+            if (rs.next()) {
+                name = rs.getString("name");
+            }
+        }
+        catch(java.sql.SQLException ex){
+            System.out.println("Customer not found!");
+        }
+        return name;
+    }
 }

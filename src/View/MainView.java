@@ -8,12 +8,14 @@ import java.util.Scanner;
  */
 public class MainView {
     public static void execute() {
-        System.out.println("Welcome to Hurtz-Rent-A-Lemon!\n");
-        System.out.println("Please select the following which best suits your visit: ");
-        System.out.println("1: Customer");
-        System.out.println("2: Employee");
-        System.out.println("3: Manager");
-        System.out.println("If you wish to exit this application. Type 0");
+        System.out.println("************************************************************");
+        System.out.println("* Welcome to Hurtz-Rent-A-Lemon!                           *");
+        System.out.println("* Please select the following which best suits your visit: *");
+        System.out.println("* 1: Customer                                              *");
+        System.out.println("* 2: Employee                                              *");
+        System.out.println("* 3: Manager                                               *");
+        System.out.println("* 0: Exit Application                                      *");
+        System.out.println("************************************************************");
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         String response;
@@ -27,6 +29,9 @@ public class MainView {
                 else if(response.equals("2")){
                     EmployeeView.execute();
                     exit = true;
+                }
+                else if(response.equals("3")){
+                    ManagerView.execute();
                 }
                 else if (response.equals("0")) {
                     exit = true;

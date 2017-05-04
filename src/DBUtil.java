@@ -11,7 +11,7 @@ public class DBUtil {
 
     public static void populate() {
         DBConnection.connect();
-        addDiscountGroups();
+        //addDiscountGroups();
         addCustomers();
         addLicenses();
         addCreditCards();
@@ -39,7 +39,7 @@ public class DBUtil {
         String city;
         String region;
         try {
-            scan = new Scanner(new File("customers.csv"));
+            scan = new Scanner(new File("data/customers.csv"));
         }
         catch(FileNotFoundException ex) {
             ex.getMessage();
@@ -68,7 +68,7 @@ public class DBUtil {
         String region;
 
         try {
-            scan = new Scanner(new File("locations.csv"));
+            scan = new Scanner(new File("data/locations.csv"));
         }
         catch(FileNotFoundException ex) {
             ex.getMessage();
@@ -93,11 +93,6 @@ public class DBUtil {
 
     public static void addVehicles() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
-        /*
-        List<String> makes = Arrays.asList("BMW", "Chrysler", "Honda", "Ferrari", "Mazda", "Jeep", "Volvo", "Isuzu",
-                "Citrogen", "Amc", "Ford", "Toyota", "Chevrolet", "Pontiac");
-        List<String> models = Arrays.asList("Axium", "Gremlin", "Pacer", "Edsel", "A6", "A8");
-        List<String> types = Arrays.asList("Minicar", "SUV", "Minivan", "Compact", "Subcompact");*/
         vehicles.add(new Vehicle("Isuzu", "Axium", "2001", "SUV", 12000, 0));
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1948", "minicar", 200000, 0));
         vehicles.add(new Vehicle("Citroen", "Deux Chevaux (2CV)", "1949", "minicar", 145940, 0));
@@ -165,7 +160,7 @@ public class DBUtil {
         String expString;
 
         try {
-            scan = new Scanner(new File("licenses.csv"));
+            scan = new Scanner(new File("data/licenses.csv"));
         }
         catch(FileNotFoundException ex) {
             ex.getMessage();
@@ -194,7 +189,7 @@ public class DBUtil {
         String cvv;
         String exp;
         try {
-            scan = new Scanner(new File("creditcards.csv"));
+            scan = new Scanner(new File("data/creditcards.csv"));
         }
         catch(FileNotFoundException ex) {
             ex.getMessage();
@@ -216,11 +211,6 @@ public class DBUtil {
             cc.insert(i++);
         }
 
-    }
-
-    public static void createRentals(){
-        ArrayList<Rental> rentals = new ArrayList<>();
-        //rentals.add(new Rental())
     }
 
     public static void main(String[] args){
