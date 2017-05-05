@@ -34,13 +34,10 @@ public class Rental {
                 " values(" + getCustId() + ", " + getLocId() + ", " + getVin() + ", " + getRate()
                 + ", " + "current_timestamp, " + "(select to_timestamp('" + stringDate +
                 "'," + "'DD-Mon-YYYY HH24-MI-SS') + " + getNumDays() + " FROM dual))");
-        System.out.println("insert into rental(id, locid, vin, rate, pickup, dropoff)" +
-                " values(" + getCustId() + ", " + getLocId() + ", " + getVin() + ", " + getRate()
-                + ", " + "current_timestamp, " + "(select to_timestamp('" + stringDate +
-                "'," + "'DD-Mon-YYYY HH24-MI-SS') + " + getNumDays() + " FROM dual));");
     }
 
     public static void listAll(){
+        System.out.println();
         String name;
         String year;
         String make;
@@ -54,9 +51,9 @@ public class Rental {
                 System.out.println("There are no current rentals.");
                 return;
             }
-            System.out.printf("%-20s%5s%15s%15s%15s%15s\n", "Name", "Year", "Make", "Model", "Pickup Date", "Dropoff Date");
-            System.out.printf("%-20s%5s%15s%15s%15s%15s\n", "--------------------", "-----", "---------------", "---------------",
-                    "---------------", "---------------");
+            System.out.printf("%-6s%-21s%-6s%-21s%-21s%-11s%-11s\n", "Count", "Name", "Year", "Make", "Model", "Start Date", "End Date");
+            System.out.printf("%-6s%-21s%-6s%-21s%-21s%-11s%-11s\n", "-----", "--------------------", "-----", "--------------------",
+                    "--------------------", "----------", "----------");
             int i = 1;
             while(rs.next()){
                 name = rs.getString("name");
@@ -65,12 +62,13 @@ public class Rental {
                 model = rs.getString("model");
                 dtStart = rs.getString("pickup");
                 dtEnd = rs.getString("dropoff");
-                System.out.printf("%-20s%5s%15s%15s%15s%15s\n", i++ + ": " + name, year, make, model, dtStart.split(" ")[0], dtEnd.split(" ")[0]);
+                System.out.printf("%-6s%-21s%-6s%-21s%-21s%-11s%-11s\n", i++, name, year, make, model, dtStart.split(" ")[0], dtEnd.split(" ")[0]);
             }
         }
         catch(java.sql.SQLException ex){
             ex.getMessage();
         }
+        System.out.println();
     }
 
     public static void showCustomerHistory(String id){
@@ -85,15 +83,15 @@ public class Rental {
                 System.out.println("You have not rented from us before. You're missing out on a painfully bad experience!");
                 return;
             }
-            System.out.printf("%-8s%-15s%-8s%-15s%-15s\n", "RentNo", "Start Date", "Year", "Make", "Model");
-            System.out.printf("%-8s%-15s%-8s%-15s%-15s\n", "------", "----------", "----", "----", "-----");
+            System.out.printf("%-6s%-11s%-5s%-21s%-21s\n", "Count", "Start Date", "Year", "Make", "Model");
+            System.out.printf("%-6s%-11s%-5s%-21s%-21s\n", "-----", "----------", "----", "----", "-----");
             int i = 1;
             while (rs.next()) {
                 pickup = rs.getString("pickup");
                 year = rs.getString("year");
                 make = rs.getString("make");
                 model = rs.getString("model");
-                System.out.printf("%-8s%-15s%-8s%-15s%-15s\n", i++ + ": ", pickup.split(" ")[0], year, make, model);
+                System.out.printf("%-6s%-11s%-5s%-21s%-21s\n", i++, pickup.split(" ")[0], year, make, model);
             }
         }
         catch(java.sql.SQLException ex){

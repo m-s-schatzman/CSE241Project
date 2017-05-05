@@ -17,6 +17,7 @@ public class CustomerView {
     public static void execute(){
         Scanner scan = new Scanner(System.in);
         System.out.println("************************************************************");
+        System.out.println("* Please select from the following:                        *");
         System.out.println("* 1. Returning customer                                    *");
         System.out.println("* 2. New Customer                                          *");
         System.out.println("* 0. Go back                                               *");
@@ -37,8 +38,12 @@ public class CustomerView {
                 MainView.execute();
             }
             else{
-                System.out.println("Oops. Improper input. Try 'returning customer', 'new customer', " +
-                        "or 'back':");
+                System.out.println("************************************************************");
+                System.out.println("* Please select from the following:                        *");
+                System.out.println("* 1. Returning customer                                    *");
+                System.out.println("* 2. New Customer                                          *");
+                System.out.println("* 0. Go back                                               *");
+                System.out.println("************************************************************");
             }
         }
 
@@ -113,7 +118,7 @@ public class CustomerView {
 
     private static void existingCustomer(String id) {
         Scanner scan = new Scanner(System.in);
-        String cust_id = "";
+        String cust_id = id;
         if(id.equals("")) {
             System.out.println("Please enter your HRAL customer id. If you do not remember it, type '0' and consult HRAL management.");
             String choice = scan.next();
@@ -127,7 +132,7 @@ public class CustomerView {
                     if (!cust_id.equals("")) {
                         valid = true;
                         name = Customer.getCustName(cust_id);
-                        System.out.println("Welcome back " + name + "!");
+                        System.out.println("\nWelcome back " + name + "!");
                     }
                 }
             }
@@ -135,7 +140,8 @@ public class CustomerView {
         String choice;
         boolean valid = false;
         while(!valid){
-            System.out.println("************************************************************");
+            System.out.println("\n************************************************************");
+            System.out.println("* Please select from the following:                        *");
             System.out.println("* 1. Create Reservation                                    *");
             System.out.println("* 2. See your rental history                               *");
             System.out.println("* 3. See your reservation history                          *");
@@ -154,6 +160,15 @@ public class CustomerView {
             }
             else if(choice.equals("0")){
                 execute();
+            }
+            else{
+                System.out.println("\n************************************************************");
+                System.out.println("* Please select from the following:                        *");
+                System.out.println("* 1. Create Reservation                                    *");
+                System.out.println("* 2. See your rental history                               *");
+                System.out.println("* 3. See your reservation history                          *");
+                System.out.println("* 0. Go back                                               *");
+                System.out.println("************************************************************");
             }
         }
     }
@@ -209,13 +224,12 @@ public class CustomerView {
         if(dateToValidate == null){
             return false;
         }
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
         sdf.setLenient(false);
 
         try {
-
             Date date = sdf.parse(dateToValidate);
+            return true;
 
         } catch (java.text.ParseException ex) {
 
@@ -223,7 +237,6 @@ public class CustomerView {
             return false;
         }
 
-        return true;
     }
 
 

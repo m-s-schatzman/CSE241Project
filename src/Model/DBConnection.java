@@ -21,9 +21,9 @@ public class DBConnection {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter Oracle user id:");
-        String username = "mss517";
+        String username = scan.next();
         System.out.println("Enter Oracle password for " + username + ":");
-        String password = "Warrior2840";
+        String password = scan.next();
 
         boolean success = false;
         while (!success) {
@@ -31,12 +31,10 @@ public class DBConnection {
                 con = DriverManager.getConnection("jdbc:oracle:thin:@edgar0.cse.lehigh.edu:1521:cse241", username, password);
                 success = true;
             } catch (java.sql.SQLException ex) {
-                //System.out.println("Waiting..");
-                /*
                 System.out.println("enter Oracle user id:");
                 username = scan.next();
                 System.out.println("enter Oracle password for " + username + ":");
-                password = scan.next();*/
+                password = scan.next();
             }
         }
     }
@@ -83,12 +81,10 @@ public class DBConnection {
         try {
             s = con.createStatement();
 
-            //System.out.println(query);
 
             // execute insert SQL stetement
             s.executeUpdate(query);
 
-            //System.out.println("Record is inserted into DBUSER table!");
 
         } catch (java.sql.SQLException e) {
 

@@ -30,6 +30,18 @@ public class Vehicle {
         this.available = 1;
     }
 
+    public Vehicle(String make, String model, String year, String type,
+                   int odometer, int location, double rate){
+        this.rate = rate;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.type = type;
+        this.odometer = odometer;
+        this.location = location;
+        this.available = 1;
+    }
+
     public void insert(int location) {
         DBConnection.insertTuple("insert into vehicle(rate, make, model, year, type, odometer, loc_id, available) values('" + getRate() + "', '" + getMake() + "', '" + getModel() + "', '" +
                 getYear() + "', '" + getType() + "', '" + getOdometer() + "', '" + location + "', '" + getAvailable() + "')");
@@ -52,6 +64,53 @@ public class Vehicle {
         }
         return vinReturn;
     }
+
+    public static void listAll(){
+        System.out.println();
+        String city;
+        String type;
+        String year;
+        String make;
+        String model;
+        String odometer;
+        String rate;
+        String region;
+        String out;
+        ResultSet rs = DBConnection.getTuple("select city, region, type, year, make, model, odometer, rate, available\n" +
+                "from vehicle natural join location");
+        try {
+            if (!rs.isBeforeFirst()) {
+                System.out.println("Uh oh.. don't know where all our cars went :(.");
+                return;
+            }
+            System.out.printf("%-6s%-31s%-21s%-5s%-21s%-21s%-11s%-8s%-17s\n", "Count", "Location", "Type", "Year", "Make", "Model",
+                    "Odometer", "Rate", "Currently Rented");
+            System.out.printf("%-6s%-31s%-21s%-5s%-21s%-21s%-11s%-8s%-17s\n", "-----", "------------------------------", "--------------------", "----",
+                    "--------------------", "--------------------", "----------", "-------", "----------------");
+            int i = 1;
+            while(rs.next()){
+                city = rs.getString("city");
+                region = rs.getString("region");
+                type = rs.getString("type");
+                year = rs.getString("year");
+                make = rs.getString("make");
+                model = rs.getString("model");
+                odometer = rs.getString("odometer");
+                rate = rs.getString("rate");
+                out = rs.getString("available");
+                if(out.equals("1"))
+                    out = "No";
+                else
+                    out = "Yes";
+                System.out.printf("%-6s%-31s%-21s%-5s%-21s%-21s%-11s%-8s%-17s\n", i++, city + ", " + region, type, year, make, model, odometer, rate, out);
+            }
+        }
+        catch(java.sql.SQLException ex){
+            ex.getMessage();
+        }
+        System.out.println();
+    }
+
 
     public void setRate(int rate) {
         this.rate = rate;

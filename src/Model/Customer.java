@@ -1,8 +1,6 @@
 package Model;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  * Created by MarkSchatzman on 4/26/17.
@@ -49,21 +47,26 @@ public class Customer {
     }
 
     public static void showCustomers(){
-        ArrayList<Customer> customers = new ArrayList<>();
+        String cust_id;
+        String name;
+        String lid;
         ResultSet rs = DBConnection.getTuple("select customer.id, name, lid, exp " +
-                "from customer left outer join license on customer.id = license.id");
+                "from customer left outer join license on customer.id = license.id order by customer.id");
         String date;
+        System.out.printf("%-4s%-26s%-20s%-11s\n", "ID", "Name", "License Number", "License Exp");
+        System.out.printf("%-4s%-26s%-20s%-11s\n", "---", "-------------------------", "-------------------", "----------");
         try {
             while (rs.next()) {
+                cust_id = rs.getString("id");
+                name = rs.getString("name");
+                lid = rs.getString("lid");
                 try {
                     date = rs.getString("exp").split(" ")[0];
+                    System.out.printf("%-4s%-26s%-20s%-11s\n", cust_id, name, lid, date);
                 }
                 catch(java.lang.NullPointerException ex){
-                    System.out.printf("%-3s%-25s\n", rs.getString("id") + ": ", rs.getString("name"));
-                    continue;
+                    System.out.printf("%-4s%-26s\n", rs.getString("id") + ": ", rs.getString("name"));
                 }
-                System.out.printf("%-3s%-25s%-20s%-8s\n", rs.getString("id") + ": ", rs.getString("name"),
-                        rs.getString("lid"), date);
             }
         }
         catch(SQLException ex){

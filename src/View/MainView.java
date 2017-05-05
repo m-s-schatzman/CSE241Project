@@ -1,5 +1,7 @@
 package View;
 
+import Model.DBConnection;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -34,7 +36,9 @@ public class MainView {
                     ManagerView.execute();
                 }
                 else if (response.equals("0")) {
-                    exit = true;
+                    DBConnection.close();
+                    System.out.println("Hope you enjoyed you're HRAL experience! Thanks for a great semester Professor Korth!");
+                    System.exit(0);
                 }
             } catch (InputMismatchException ex) {
                 System.out.println("Please enter 1 for Customer, 2 for Employee," +
